@@ -21,9 +21,14 @@
   animation: marquee 20s linear infinite;
 }
 
-/* .animate-marquee2 {
-  animation: marquee2 20s linear infinite;
-} */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 
 
 

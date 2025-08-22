@@ -24,7 +24,7 @@ export default defineConfig([
     },
     rules: {
       'no-unused-vars': ['error', { 
-        varsIgnorePattern: '^([A-Z_]|motion|React|RouterProvider|LandingPage|Header|HeroSection|AboutUsSection|ProgressCirclesSection)$',
+        varsIgnorePattern: '^([A-Z_]|motion|React|RouterProvider|LandingPage|Header|HeroSection|AboutUsSection|ProgressCirclesSection|AnimatePresence)$',
         argsIgnorePattern: '^_',
         ignoreRestSiblings: true
       }],

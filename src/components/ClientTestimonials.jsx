@@ -64,7 +64,7 @@ const ClientTestimonials = () => {
             </div>
 
             {/* Happy Clients Metric */}
-            <div className="space-y-2 sm:space-y-3">
+            <div className="space-y-2 sm:space-y-3 lg:mt-50">
               <div className="inline-block font-poppins bg-teal-500 text-gray-800 px-4 py-2 rounded-2xl text-2xl sm:text-3xl">
                 90+
               </div>

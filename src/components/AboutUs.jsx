@@ -1,8 +1,34 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import * as motion from 'motion/react-client';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence, useScroll, useTransform } from 'motion/react';
 
 const AboutUsSection = () => {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start']
+  });
+
+  // Create a fizzy circular reveal effect that grows from tiny to large
+  const circleScale = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [0.1, 1.2, 2.5, 4]);
+  const circleOpacity = useTransform(scrollYProgress, 
+    [0, 0.1, 0.3, 0.7, 0.9], 
+    [0, 0.9, 1, 0.8, 0]
+  );
+  
+  // Add some fizzy movement to the circle
+  const circleX = useTransform(scrollYProgress, 
+    [0, 0.25, 0.5, 0.75, 1],
+    [0, 10, -5, 5, 0]
+  );
+  const circleY = useTransform(scrollYProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    [0, -8, 5, -3, 0]
+  );
+  const circleRotate = useTransform(scrollYProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    [0, 5, -3, 2, 0]
+  );
   const images = [
     '/img1.jpg',
     '/img2.jpg',
@@ -14,7 +40,34 @@ const AboutUsSection = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   return (
-    <div className="py-8 md:py-16 bg-white overflow-hidden">
+    <div ref={sectionRef} className="relative my-8 md:my-16 overflow-hidden">
+      {/* Yellow circular overlay */}
+      <motion.div 
+        className="absolute inset-0 bg-yellow-400 rounded-full pointer-events-none"
+        style={{
+          scale: circleScale,
+          opacity: circleOpacity,
+          x: circleX,
+          y: circleY,
+          rotate: circleRotate,
+          background: 'radial-gradient(circle, rgba(250, 204, 21, 0.9) 0%, rgba(250, 204, 21, 0) 70%)',
+          mixBlendMode: 'multiply',
+          zIndex: 10,
+          pointerEvents: 'none',
+          transformOrigin: 'center center',
+          top: '50%',
+          left: '50%',
+          position: 'absolute',
+          width: '100vmax',
+          height: '100vmax',
+          marginTop: '-50vmax',
+          marginLeft: '-50vmax',
+          transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+        }}
+      />
+      {/* <button className="mx-auto flex bg-green-400">
+        <p className="">scroll to discover</p>
+      </button> */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
         <div className="flex flex-col lg:flex-row justify-between items-start gap-8 md:gap-12 lg:gap-16">
           {/* Text Content */}
